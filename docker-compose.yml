@@ -11,9 +11,10 @@ services:
     volumes:
       - mysql:/var/lib/mysql
   adminer:
-    image: adminer
+    # https://github.com/wodby/docker4wordpress
+    image: wodby/adminer
     ports:
-      - 8080:8080
+      - 8080:9000
   wordpress:
     image: wordpress:5.6-php7.4-apache
     environment:
@@ -23,14 +24,6 @@ services:
       WORDPRESS_DB_NAME: learnwp
       DEPLOY_ENVIRONMENT: local
       WORDPRESS_DEBUG: 1
-      #we need to down and up docker again
-      #when add extra config
-      #docker-compose down
-      #docker-compose up -d
-      # WORDPRESS_CONFIG_EXTRA: |
-      #   /* direct ftp */
-      #   define('FS_METHOD','direct');
-      #   define('WP_DEBUG_LOG', true);
     ports:
       - 8000:80
     depends_on:
